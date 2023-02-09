@@ -1,20 +1,29 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import {NavigationContainer, useNavigation} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import FirstScreen from "./screens/FirstScreen";
+import {useFonts} from "expo-font";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+
+const Stack = createStackNavigator();
+
+function App() {
+    const [fontsLoaded] = useFonts({
+        BebasNeue: require('./assets/fonts/Bebas Neue Regular.ttf'),
+        Dosis: require('./assets/fonts/Dosis-Regular.ttf'),
+    })
+
+    if (!fontsLoaded){
+        return null
+    }
+
+    return (
+        <NavigationContainer>
+            <Stack.Navigator>
+                <Stack.Screen name={' '} component={FirstScreen}/>
+            </Stack.Navigator>
+        </NavigationContainer>
+    );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
