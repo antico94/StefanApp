@@ -3,13 +3,24 @@ import { Image, Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import services from "../assets/images/services.png";
 import LoadingScreen from "./LoadingScreen";
 
-const FirstScreen = () => {
+const FirstScreen = ({navigation}) => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   const handleImageLoad = () => {
     setImageLoaded(true);
   };
 
+  const navigateToLogin = () => {
+    navigation.navigate('Login');
+  };
+
+  const navigateToRegister = () => {
+    navigation.navigate('Register');
+  };
+
+  const navigateToHomepage = () => {
+    navigation.navigate('Homepage');
+  };
 
   return (
     <View style={styles.mainView}>
@@ -22,17 +33,17 @@ const FirstScreen = () => {
       />
       {imageLoaded ? (
         <View style={styles.buttonsView}>
-          <TouchableOpacity style={styles.buttonsContainer}>
+          <TouchableOpacity style={styles.buttonsContainer} onPress={navigateToLogin}>
             <Text style={[styles.optionButtons, styles.loginButton]}>
               Login
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonsContainer}>
+          <TouchableOpacity style={styles.buttonsContainer} onPress={navigateToRegister}>
             <Text style={[styles.optionButtons, styles.registerButton]}>
               Register
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonsContainer}>
+          <TouchableOpacity style={styles.buttonsContainer} onPress={navigateToHomepage}>
             <Text style={[styles.optionButtons, styles.guestButton]}>
               Continue as guest
             </Text>
@@ -45,12 +56,14 @@ const FirstScreen = () => {
   );
 };
 
+
 const styles = StyleSheet.create({
     mainView: {
         width: '100%',
         height: '100%',
         backgroundColor: 'white',
         paddingTop: 20,
+
     },
 
     mainTitle: {
