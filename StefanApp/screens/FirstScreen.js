@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Dosis'
     },
     registerButton: {
-        backgroundColor: 'black',
+        backgroundColor: '#feb808',
         borderRadius: 10,
         overflow: 'hidden',
         color: 'white',
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
 
     },
     guestButton: {
-        backgroundColor: '#feb808',
+        backgroundColor: 'black',
         borderRadius: 10,
         overflow: 'hidden',
         color: 'white',

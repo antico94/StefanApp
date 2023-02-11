@@ -87,7 +87,7 @@ const Login = () => {
                         end={[1, 0]}
                         style={styles.buttonArea}
                     >
-                        <Text style={styles.loginButtonText}>LOGIN</Text>
+                        <Text style={styles.loginButtonText}>LOG IN</Text>
                         <Icon name="arrow-forward-outline" size={25} color="white"/>
                     </LinearGradient>
                 </View>
