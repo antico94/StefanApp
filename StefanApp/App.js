@@ -6,8 +6,7 @@ import {useFonts} from "expo-font";
 import Login from "./screens/Login";
 import HomeScreen from "./screens/HomeScreen";
 import Register from "./screens/Register";
-import {Button} from "react-native";
-import SvgComponent from "./components/SvgComponent";
+import Services from "./screens/Services";
 
 
 const Stack = createNativeStackNavigator();
@@ -33,11 +32,11 @@ function App() {
                     component={Register}
                     options={{
                         headerShown: true,
-                        headerStyle: {
-                        }
+                        headerStyle: {}
                     }}
                 />
                 <Stack.Screen name={'Homepage'} component={HomeScreen}/>
+                <Stack.Screen name={'Services'} component={Services}/>
             </Stack.Navigator>
         </NavigationContainer>
     );

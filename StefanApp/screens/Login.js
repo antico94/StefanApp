@@ -80,7 +80,7 @@ const Login = () => {
                         </View>
                     </View>
                 </View>
-                <View style={styles.buttonAreaContainer}>
+                <TouchableOpacity style={styles.buttonAreaContainer}>
                     <LinearGradient
                         colors={['#7cba27', '#3d8e2f']}
                         start={[0, 0]}
@@ -90,7 +90,7 @@ const Login = () => {
                         <Text style={styles.loginButtonText}>LOG IN</Text>
                         <Icon name="arrow-forward-outline" size={25} color="white"/>
                     </LinearGradient>
-                </View>
+                </TouchableOpacity>
                 <View style={styles.abstractSvgBottom}>
                     <SvgComponent width="100%" height="100%" strokeWidth={0} stroke="black" startColor='#3d8e2f'
                                   stopColor='#7cba27'/>

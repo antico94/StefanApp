@@ -2,7 +2,7 @@ import React, {useRef, useState} from 'react';
 import {
     StyleSheet,
     Text,
-    TextInput,
+    TextInput, TouchableOpacity,
     TouchableWithoutFeedback,
     View
 } from "react-native";
@@ -109,7 +109,7 @@ const Register = () => {
                         </View>
                     </View>
                 </View>
-                <View style={styles.buttonAreaContainer}>
+                <TouchableOpacity style={styles.buttonAreaContainer}>
                     <LinearGradient
                         colors={['#feb808', '#ea9d3e']}
                         start={[0, 0]}
@@ -119,7 +119,7 @@ const Register = () => {
                         <Text style={styles.registerButtonText}>SIGN UP</Text>
                         <Icon name="arrow-forward-outline" size={25} color="white"/>
                     </LinearGradient>
-                </View>
+                </TouchableOpacity>
                 <View style={styles.abstractSvgBottom}>
                     <SvgComponent width="100%" height="100%" strokeWidth={0} stroke="black" startColor='#ea9d3e'
                                   stopColor='#feb808'/>
