@@ -4,7 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import FirstScreen from "./screens/FirstScreen";
 import {useFonts} from "expo-font";
 import Login from "./screens/Login";
-import HomeScreen from "./screens/HomeScreen";
+import HomeManager from "./screens/HomeManager";
 import Register from "./screens/Register";
 import Services from "./screens/Services";
 
@@ -35,8 +35,7 @@ function App() {
                         headerStyle: {}
                     }}
                 />
-                <Stack.Screen name={'Homepage'} component={HomeScreen}/>
-                <Stack.Screen name={'Services'} component={Services}/>
+                <Stack.Screen name={'Homepage'} component={HomeManager}/>
             </Stack.Navigator>
         </NavigationContainer>
     );
