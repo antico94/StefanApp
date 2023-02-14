@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, ImageBackground, ActivityIndicator, TouchableOpacity} from "react-native";
+import {View, Text, StyleSheet, Image, TouchableOpacity} from "react-native";
 import Svg, {LinearGradient, Path, Stop} from "react-native-svg";
 import services from '../assets/images/servicesProvided.png'
-import Image from 'react-native-image-progress';
 import ProgressCircle from 'react-native-progress/Circle';
 
 
@@ -23,13 +22,6 @@ const HomeScreen = ({navigation}) => {
                 <Image
                     source={services}
                     style={styles.servicesImage}
-                    indicator={ProgressCircle}
-                    indicatorProps={{
-                        size: 40,
-                        borderWidth: 0,
-                        color: 'rgba(150, 150, 150, 1)',
-                        unfilledColor: 'rgba(200, 200, 200, 0.2)'
-                    }}
                 />
             </View>
             <View style={styles.bot}>
@@ -77,9 +69,6 @@ const styles = StyleSheet.create({
     servicesImage: {
         height: '100%',
         width: '100%',
-        // borderStyle: 'solid',
-        // borderWidth: 1,
-        // borderColor: 'red',
     },
     bot: {
         width: '100%',

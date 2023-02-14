@@ -24,8 +24,8 @@ function App() {
 
     return (
         <NavigationContainer>
-            <Stack.Navigator>
-                <Stack.Screen name={'FirstPage'} component={FirstScreen}/>
+            <Stack.Navigator >
+                <Stack.Screen name={'FirstPage'} component={FirstScreen} options={{headerShown: false}}/>
                 <Stack.Screen name={'Login'} component={Login}/>
                 <Stack.Screen
                     name={'Register'}

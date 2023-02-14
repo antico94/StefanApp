@@ -1,59 +1,60 @@
-import React, { useEffect, useState } from "react";
-import { Image, Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import React, {useEffect, useState} from "react";
+import {Image, Text, View, StyleSheet, TouchableOpacity} from "react-native";
 import services from "../assets/images/services.png";
 import LoadingScreen from "./LoadingScreen";
 
 const FirstScreen = ({navigation}) => {
-  const [imageLoaded, setImageLoaded] = useState(false);
+    const [imageLoaded, setImageLoaded] = useState(false);
 
-  const handleImageLoad = () => {
-    setImageLoaded(true);
-  };
+    const handleImageLoad = () => {
+        setImageLoaded(true);
+    };
 
-  const navigateToLogin = () => {
-    navigation.navigate('Login');
-  };
+    const navigateToLogin = () => {
+        navigation.navigate('Login');
+    };
 
-  const navigateToRegister = () => {
-    navigation.navigate('Register');
-  };
+    const navigateToRegister = () => {
+        navigation.navigate('Register');
+    };
 
-  const navigateToHomepage = () => {
-    navigation.navigate('Homepage');
-  };
+    const navigateToHomepage = () => {
+        navigation.navigate('Homepage');
+    };
 
-  return (
-    <View style={styles.mainView}>
-      <Text style={styles.mainTitle}>Welcome to StefanApp</Text>
-      <Image
-        source={services}
-        alt={"Services"}
-        style={styles.mainImage}
-        onLoad={handleImageLoad}
-      />
-      {imageLoaded ? (
-        <View style={styles.buttonsView}>
-          <TouchableOpacity style={styles.buttonsContainer} onPress={navigateToLogin}>
-            <Text style={[styles.optionButtons, styles.loginButton]}>
-              Login
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonsContainer} onPress={navigateToRegister}>
-            <Text style={[styles.optionButtons, styles.registerButton]}>
-              Register
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonsContainer} onPress={navigateToHomepage}>
-            <Text style={[styles.optionButtons, styles.guestButton]}>
-              Continue as guest
-            </Text>
-          </TouchableOpacity>
+    return (
+        <View style={styles.mainView}>
+            <Text style={styles.mainTitle}>Welcome to StefanApp</Text>
+            <Text style={styles.secondaryTitle}>Your all-in-one service provider</Text>
+            <Image
+                source={services}
+                alt={"Services"}
+                style={styles.mainImage}
+                onLoad={handleImageLoad}
+            />
+            {imageLoaded ? (
+                <View style={styles.buttonsView}>
+                    <TouchableOpacity style={styles.buttonsContainer} onPress={navigateToLogin}>
+                        <Text style={[styles.optionButtons, styles.loginButton]}>
+                            Login
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.buttonsContainer} onPress={navigateToRegister}>
+                        <Text style={[styles.optionButtons, styles.registerButton]}>
+                            Register
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.buttonsContainer} onPress={navigateToHomepage}>
+                        <Text style={[styles.optionButtons, styles.guestButton]}>
+                            Continue as guest
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+            ) : (
+                <LoadingScreen/>
+            )}
         </View>
-      ) : (
-          <LoadingScreen/>
-      )}
-    </View>
-  );
+    );
 };
 
 
@@ -67,15 +68,21 @@ const styles = StyleSheet.create({
     },
 
     mainTitle: {
-        marginTop: 10,
+        marginTop: 80,
         fontSize: 36,
+        textAlign: 'center',
+        fontFamily: 'Dosis'
+    },
+
+    secondaryTitle: {
+        fontSize: 20,
         textAlign: 'center',
         fontFamily: 'Dosis'
     },
 
     mainImage: {
         maxWidth: '100%',
-        height: '80%',
+        height: '70%',
     },
 
     buttonsView: {
