@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useRef, useState} from 'react';
+import React, {useContext, useRef, useState} from 'react';
 import {
     StyleSheet,
     Text,
@@ -11,12 +11,10 @@ import Icon from "react-native-vector-icons/Ionicons";
 import SvgComponent from "../components/SvgComponent";
 import {LinearGradient} from 'expo-linear-gradient';
 import {AuthContext} from "../context/AuthContext";
-// import {NavigationActions as navigation} from "react-navigation";
+
 
 const Login = ({navigation}) => {
-
-    const {login} = useContext(AuthContext)
-
+    const {logIn} = useContext(AuthContext)
     const emailRef = useRef(null);
     const [isEmailFocused, setIsEmailFocused] = useState(false);
     const [email, setEmail] = useState('');
@@ -30,6 +28,14 @@ const Login = ({navigation}) => {
         passwordRef.current.blur();
     };
 
+
+    const handleLogin = () => {
+        if (logIn(email, password)) {
+            console.log(email, password)
+            navigation.navigate('Homepage')
+        }
+
+    };
     return (
         <TouchableWithoutFeedback onPress={handleOutsidePress}>
             <View style={styles.container}>
@@ -85,7 +91,7 @@ const Login = ({navigation}) => {
                         </View>
                     </View>
                 </View>
-                <TouchableOpacity style={styles.buttonAreaContainer} onPress={() => login()}>
+                <TouchableOpacity style={styles.buttonAreaContainer} onPress={() => handleLogin()}>
                     <LinearGradient
                         colors={['#7cba27', '#3d8e2f']}
                         start={[0, 0]}

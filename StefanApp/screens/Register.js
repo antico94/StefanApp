@@ -9,7 +9,8 @@ import {
 import Icon from "react-native-vector-icons/Ionicons";
 import SvgComponent from "../components/SvgComponent";
 import {LinearGradient} from 'expo-linear-gradient';
-import {checkEmailExists} from "../database/DatabaseOperations";
+import {auth} from '../firebase'
+
 
 const Register = ({navigation}) => {
     const emailRef = useRef(null);
@@ -35,8 +36,14 @@ const Register = ({navigation}) => {
     const handleRegister = () => {
         if (password === confirmPassword) {
             console.log(password)
+            auth.createUserWithEmailAndPassword(email, password)
+                .then(userCredentials => {
+                const user = userCredentials.user
+                console.log(user)})
+                .catch(err => alert(err.message))
+            }
         }
-    }
+
 
     return (
         <TouchableWithoutFeedback onPress={handleOutsidePress}>
@@ -147,7 +154,6 @@ const Register = ({navigation}) => {
             </View>
         </TouchableWithoutFeedback>
     )
-        ;
 };
 
 export default Register;
