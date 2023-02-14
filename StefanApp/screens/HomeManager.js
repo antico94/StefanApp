@@ -19,7 +19,7 @@ const HomeManager = () => {
     return (
         <NavigationContainer independent={true}>
             <Tab.Navigator
-                initialRouteName={'HomeScreen'}
+                initialRouteName={'Home'}
                 screenOptions={({route}) => ({
                     tabBarStyle: {
                         height: 75,
@@ -38,7 +38,7 @@ const HomeManager = () => {
                     },
                     tabBarLabelStyle: {
                         fontFamily: 'DosisBold',
-                        fontSize: 20,
+                        fontSize: 17,
                     },
                     tabBarIcon: ({focused}) => {
                         let showIcon;
