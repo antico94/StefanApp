@@ -9,8 +9,9 @@ import {
 import Icon from "react-native-vector-icons/Ionicons";
 import SvgComponent from "../components/SvgComponent";
 import {LinearGradient} from 'expo-linear-gradient';
+import {checkEmailExists} from "../database/DatabaseOperations";
 
-const Register = () => {
+const Register = ({navigation}) => {
     const emailRef = useRef(null);
     const [isEmailFocused, setIsEmailFocused] = useState(false);
     const [email, setEmail] = useState('');
@@ -30,6 +31,12 @@ const Register = () => {
         passwordRef.current.blur();
         confirmPasswordRef.current.blur();
     };
+
+    const handleRegister = () => {
+        if (password === confirmPassword) {
+            console.log(password)
+        }
+    }
 
     return (
         <TouchableWithoutFeedback onPress={handleOutsidePress}>
@@ -109,7 +116,8 @@ const Register = () => {
                         </View>
                     </View>
                 </View>
-                <TouchableOpacity style={styles.buttonAreaContainer}>
+                <TouchableOpacity style={styles.buttonAreaContainer} onPress={() => handleRegister()}>
+
                     <LinearGradient
                         colors={['#feb808', '#ea9d3e']}
                         start={[0, 0]}
@@ -129,9 +137,11 @@ const Register = () => {
                         <Text style={styles.footerText}>
                             Already have an account?
                         </Text>
-                        <Text style={styles.footerSignUp}>
-                            Sign in
-                        </Text>
+                        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                            <Text style={styles.footerSignUp}>
+                                Sign in
+                            </Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>

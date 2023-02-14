@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import {
     StyleSheet,
     Text,
@@ -10,8 +10,13 @@ import {
 import Icon from "react-native-vector-icons/Ionicons";
 import SvgComponent from "../components/SvgComponent";
 import {LinearGradient} from 'expo-linear-gradient';
+import {AuthContext} from "../context/AuthContext";
+// import {NavigationActions as navigation} from "react-navigation";
 
-const Login = () => {
+const Login = ({navigation}) => {
+
+    const {login} = useContext(AuthContext)
+
     const emailRef = useRef(null);
     const [isEmailFocused, setIsEmailFocused] = useState(false);
     const [email, setEmail] = useState('');
@@ -80,7 +85,7 @@ const Login = () => {
                         </View>
                     </View>
                 </View>
-                <TouchableOpacity style={styles.buttonAreaContainer}>
+                <TouchableOpacity style={styles.buttonAreaContainer} onPress={() => login()}>
                     <LinearGradient
                         colors={['#7cba27', '#3d8e2f']}
                         start={[0, 0]}
@@ -100,9 +105,11 @@ const Login = () => {
                         <Text style={styles.footerText}>
                             Don't have an account?
                         </Text>
-                        <Text style={styles.footerSignUp}>
-                            Sign up
-                        </Text>
+                        <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+                            <Text style={styles.footerSignUp}>
+                                Sign up
+                            </Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>
