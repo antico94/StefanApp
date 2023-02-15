@@ -2,7 +2,8 @@ import React from 'react';
 import {useFonts} from "expo-font";
 import {AuthProvider} from "./context/AuthContext";
 import AppNav from "./navigation/AppNav";
-
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['AsyncStorage']);
 
 function App() {
     const [fontsLoaded] = useFonts({

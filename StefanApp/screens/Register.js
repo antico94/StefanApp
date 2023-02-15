@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useContext, useRef, useState} from 'react';
 import {
     StyleSheet,
     Text,
@@ -10,9 +10,11 @@ import Icon from "react-native-vector-icons/Ionicons";
 import SvgComponent from "../components/SvgComponent";
 import {LinearGradient} from 'expo-linear-gradient';
 import {auth} from '../firebase'
+import {AuthContext} from "../context/AuthContext";
 
 
 const Register = ({navigation}) => {
+    const {register} = useContext(AuthContext)
     const emailRef = useRef(null);
     const [isEmailFocused, setIsEmailFocused] = useState(false);
     const [email, setEmail] = useState('');
@@ -34,15 +36,8 @@ const Register = ({navigation}) => {
     };
 
     const handleRegister = () => {
-        if (password === confirmPassword) {
-            console.log(password)
-            auth.createUserWithEmailAndPassword(email, password)
-                .then(userCredentials => {
-                const user = userCredentials.user
-                console.log(user)})
-                .catch(err => alert(err.message))
-            }
-        }
+        register(email, password, confirmPassword)
+    }
 
 
     return (

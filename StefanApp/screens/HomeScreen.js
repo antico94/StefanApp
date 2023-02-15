@@ -1,12 +1,12 @@
 import React, {useContext, useState} from 'react';
-import {View, Text, StyleSheet, Image, TouchableOpacity} from "react-native";
+import {View, Text, StyleSheet, Image, TouchableOpacity, Alert} from "react-native";
 import Svg, {LinearGradient, Path, Stop} from "react-native-svg";
 import services from '../assets/images/servicesProvided.png'
 import {AuthContext} from "../context/AuthContext";
 import * as RootNavigation from './../navigation/RootNavigation';
 
-const HomeScreen = ({navigation}) => {
-    const {userToken} = useContext(AuthContext)
+const HomeScreen = () => {
+    const {isUserLoggedIn} = useContext(AuthContext)
     return (
         <View style={styles.containerHomeScreen}>
             <Svg style={styles.svgBackground} xmlns="http://www.w3.org/2000/svg">
@@ -37,7 +37,8 @@ const HomeScreen = ({navigation}) => {
                     business ahead of the competition. Contact us today to get started on your next project and
                     experience the best of IT services.
                 </Text>
-                <TouchableOpacity style={styles.buttonsContainer} onPress={() => userToken === null ? RootNavigation.navigate('Login') :  RootNavigation.navigate('Services')}>
+                <TouchableOpacity style={styles.buttonsContainer}
+                                  onPress={() => isUserLoggedIn ? RootNavigation.navigate('Services') : Alert.alert("You need to log in first!")}>
                     <Text style={styles.loginButton}>
                         Check our Services
                     </Text>

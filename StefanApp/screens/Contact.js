@@ -1,15 +1,23 @@
-import React from 'react';
-import {View, Text, StyleSheet, Image, TouchableOpacity} from "react-native";
+import React, {useContext} from 'react';
+import {View, Text, StyleSheet, Image, TouchableOpacity, Alert} from "react-native";
 import Svg, {Path} from "react-native-svg";
 import contact from './../assets/images/contact.png'
 import * as RootNavigation from './../navigation/RootNavigation';
+import {AuthContext} from "../context/AuthContext";
 
 const Contact = () => {
+    const {isUserLoggedIn} = useContext(AuthContext)
     return (
         <View style={styles.contactContainer}>
             <View style={styles.contactTop}>
-                <Text style={styles.contactText}>At our core, we believe in the power of communication and building strong relationships with our clients. That's why we always love to chat and connect with new people, learning more about their unique needs and exploring ways we can support them in achieving their goals.</Text>
-                <TouchableOpacity style={styles.buttonsContainer} onPress={() => RootNavigation.navigate('Services')}>
+                <Text style={styles.contactText}>At our core, we believe in the power of communication and building
+                    strong relationships with our clients. That's why we always love to chat and connect with new
+                    people, learning more about their unique needs and exploring ways we can support them in achieving
+                    their goals.</Text>
+                <TouchableOpacity style={styles.buttonsContainer} onPress={
+                    () => {
+                        isUserLoggedIn ? RootNavigation.navigate('Services') : Alert.alert("You need to log in first")
+                    }}>
                     <Text style={styles.loginButton}>
                         Check our Services
                     </Text>

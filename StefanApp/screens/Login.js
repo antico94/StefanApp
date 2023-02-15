@@ -30,11 +30,7 @@ const Login = ({navigation}) => {
 
 
     const handleLogin = () => {
-        if (logIn(email, password)) {
-            console.log(email, password)
-            navigation.navigate('Homepage')
-        }
-
+        logIn(email, password)
     };
     return (
         <TouchableWithoutFeedback onPress={handleOutsidePress}>
