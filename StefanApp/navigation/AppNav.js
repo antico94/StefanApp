@@ -9,6 +9,7 @@ import {AuthContext} from "../context/AuthContext";
 import {navigationRef} from "./RootNavigation";
 import Services from "../screens/Services";
 import {Animated, Text, TouchableOpacity, View} from "react-native";
+import AddService from "../screens/AddService";
 
 const Stack = createNativeStackNavigator();
 
@@ -72,6 +73,7 @@ const AppNav = () => {
                     <Stack.Screen name={'Register'} component={Register}/>
                     <Stack.Screen name={'Homepage'} component={Footer} options={{headerShown: false}}/>
                     <Stack.Screen name={'Services'} component={Services}/>
+                    <Stack.Screen name={'AddImage'} component={AddService}/>
                 </Stack.Navigator>
             </NavigationContainer>
         )

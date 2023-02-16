@@ -66,7 +66,7 @@ const Footer = () => {
                             />
                         );
                     },
-                    headerLeft: () => (
+                    headerLeft: () => !isUserLoggedIn ? (
                         <TouchableOpacity
                             onPress={() => RootNavigation.navigate("FirstPage")}
                             style={{
@@ -84,10 +84,12 @@ const Footer = () => {
                             <Ionicons name="arrow-back" size={24} color="orange"/>
                             <Text style={{
                                 fontFamily: 'Dosis',
-                                fontSize: 20
+                                fontSize: 20,
+                                color: 'black'
+
                             }}>Back</Text>
                         </TouchableOpacity>
-                    ),
+                    ) : null,
                     headerRight: () => (
                         isUserLoggedIn ?
                             (<TouchableOpacity
@@ -104,7 +106,8 @@ const Footer = () => {
                                 onPress={() => logOut()}>
                                 <Text style={{
                                     fontFamily: 'Dosis',
-                                    fontSize: 20
+                                    fontSize: 20,
+                                    color: 'black'
                                 }}>Log Out</Text>
                             </TouchableOpacity>) : null
                     ),
@@ -113,7 +116,9 @@ const Footer = () => {
             >
                 {isUserLoggedIn ? (
                     <Tab.Screen name={'Services'} component={Services} options={{headerShown: true}}/>) : null}
-                <Tab.Screen name={'Home'} component={HomeScreen} options={{headerShown: true}}/>
+                <Tab.Screen name={'Home'} component={HomeScreen} options={{
+                    headerShown: true
+                }}/>
                 {isUserLoggedIn ? (
                     <Tab.Screen name={'Contact'} component={Contact} options={{headerShown: true}}/>) : null}
             </Tab.Navigator>

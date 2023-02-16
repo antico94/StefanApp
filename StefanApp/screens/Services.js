@@ -6,7 +6,7 @@ import research from './../assets/images/services/research.png'
 import security from './../assets/images/services/security.png'
 import simple_customer_service from './../assets/images/services/simple_customer_service.png'
 import technical_customer_service from './../assets/images/services/technical_customer_service.png'
-import Service from "../components/Service";
+import ServiceCreator from "../components/ServiceCreator";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -54,6 +54,7 @@ const Services = () => {
                             />
                         </View>
                     ))}
+                    <ServiceCreator/>
                 </View>
             </ScrollView>
         </View>
@@ -90,7 +91,8 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         flexWrap: 'wrap',
-        justifyContent: 'space-evenly'
+        justifyContent: 'space-between',
+        padding: 10
     },
     serviceContainerInside: {},
 
