@@ -73,7 +73,7 @@ const AppNav = () => {
                     <Stack.Screen name={'Register'} component={Register}/>
                     <Stack.Screen name={'Homepage'} component={Footer} options={{headerShown: false}}/>
                     <Stack.Screen name={'Services'} component={Services}/>
-                    <Stack.Screen name={'AddImage'} component={AddService}/>
+                    <Stack.Screen name={'AddImage'} component={AddService} options={{headerShown: true, headerTransparent: true}}/>
                 </Stack.Navigator>
             </NavigationContainer>
         )

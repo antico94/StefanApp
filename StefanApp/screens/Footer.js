@@ -114,7 +114,7 @@ const Footer = () => {
                     headerTitle: () => (null)
                 })}
             >
-                {isUserLoggedIn ? (
+                {!isUserLoggedIn ? (
                     <Tab.Screen name={'Services'} component={Services} options={{headerShown: true}}/>) : null}
                 <Tab.Screen name={'Home'} component={HomeScreen} options={{
                     headerShown: true

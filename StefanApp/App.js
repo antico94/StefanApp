@@ -3,7 +3,7 @@ import {useFonts} from "expo-font";
 import {AuthProvider} from "./context/AuthContext";
 import AppNav from "./navigation/AppNav";
 import { LogBox } from 'react-native';
-LogBox.ignoreLogs(['AsyncStorage']);
+LogBox.ignoreLogs(['AsyncStorage', 'Key "uri"']);
 
 function App() {
     const [fontsLoaded] = useFonts({

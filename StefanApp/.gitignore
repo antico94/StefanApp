@@ -371,3 +371,4 @@ google-services.json
 
 .env
 firebase.js
+./firebase.js
