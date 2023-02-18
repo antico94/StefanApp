@@ -18,20 +18,18 @@ const AppNav = () => {
         const {isUserLoggedIn, logOut} = useContext(AuthContext)
         const [opacity] = useState(new Animated.Value(0));
 
-        // Start the animation when the message changes
         useEffect(() => {
             // Fade in to 1
             Animated.timing(opacity, {
                 toValue: 1,
-                duration: 500, // Duration in milliseconds
-                useNativeDriver: true, // Use native driver for better performance
+                duration: 500,
+                useNativeDriver: true,
             }).start(() => {
-                // Fade out to 0 after 1 second
                 setTimeout(() => {
                     Animated.timing(opacity, {
                         toValue: 0,
-                        duration: 500, // Duration in milliseconds
-                        useNativeDriver: true, // Use native driver for better performance
+                        duration: 500,
+                        useNativeDriver: true,
                     }).start()
                     setMessage("")
                     ;
@@ -68,12 +66,12 @@ const AppNav = () => {
                             </Animated.View>
                         </View>)
                 })}>
-                    <Stack.Screen name={'FirstPage'} component={FirstScreen}/>
-                    <Stack.Screen name={'Login'} component={Login}/>
-                    <Stack.Screen name={'Register'} component={Register}/>
+                    <Stack.Screen name={'FirstPage'} component={FirstScreen} options={{headerShown: true, headerTransparent: true}}/>
+                    <Stack.Screen name={'Login'} component={Login} options={{headerShown: true, headerTransparent: true}}/>
+                    <Stack.Screen name={'Register'} component={Register} options={{headerShown: true, headerTransparent: true}}/>
                     <Stack.Screen name={'Homepage'} component={Footer} options={{headerShown: false}}/>
-                    <Stack.Screen name={'Services'} component={Services}/>
-                    <Stack.Screen name={'AddImage'} component={AddService} options={{headerShown: true, headerTransparent: true}}/>
+                    <Stack.Screen name={'Services'} component={Services} options={{headerShown: true, headerTransparent: false}}/>
+                    <Stack.Screen name={'AddImage'} component={AddService} options={{headerShown: false, headerTransparent: true}}/>
                 </Stack.Navigator>
             </NavigationContainer>
         )

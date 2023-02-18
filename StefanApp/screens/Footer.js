@@ -70,9 +70,6 @@ const Footer = () => {
                         <TouchableOpacity
                             onPress={() => RootNavigation.navigate("FirstPage")}
                             style={{
-                                // borderStyle: 'solid',
-                                // borderWidth: 1,
-                                // borderColor: 'red',
                                 width: 70,
                                 display: 'flex',
                                 justifyContent: 'space-evenly',
@@ -83,9 +80,9 @@ const Footer = () => {
                             }}>
                             <Ionicons name="arrow-back" size={24} color="orange"/>
                             <Text style={{
-                                fontFamily: 'Dosis',
-                                fontSize: 20,
-                                color: 'black'
+                                // fontFamily: 'Dosis',
+                                // fontSize: 20,
+                                // color: 'black'
 
                             }}>Back</Text>
                         </TouchableOpacity>
@@ -105,16 +102,16 @@ const Footer = () => {
                                 }}
                                 onPress={() => logOut()}>
                                 <Text style={{
-                                    fontFamily: 'Dosis',
-                                    fontSize: 20,
-                                    color: 'black'
+                                    // fontFamily: 'Dosis',
+                                    // fontSize: 15,
+                                    // color: 'red'
                                 }}>Log Out</Text>
                             </TouchableOpacity>) : null
                     ),
                     headerTitle: () => (null)
                 })}
             >
-                {!isUserLoggedIn ? (
+                {isUserLoggedIn ? (
                     <Tab.Screen name={'Services'} component={Services} options={{headerShown: true}}/>) : null}
                 <Tab.Screen name={'Home'} component={HomeScreen} options={{
                     headerShown: true

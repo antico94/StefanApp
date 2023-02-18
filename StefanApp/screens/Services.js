@@ -1,12 +1,8 @@
-import React, {Suspense} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {View, Text, ScrollView, StyleSheet, Dimensions} from "react-native";
-import development from './../assets/images/services/developement.png'
-import graphic_designer from './../assets/images/services/graphic_designer.png'
-import research from './../assets/images/services/research.png'
-import security from './../assets/images/services/security.png'
-import simple_customer_service from './../assets/images/services/simple_customer_service.png'
-import technical_customer_service from './../assets/images/services/technical_customer_service.png'
 import ServiceCreator from "../components/ServiceCreator";
+import {database} from "../firebase";
+import {AuthContext} from "../context/AuthContext";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -14,51 +10,55 @@ const screenHeight = Dimensions.get("window").height;
 
 const Services = () => {
     const LazyService = React.memo(React.lazy(() => import('./../components/Service')));
-    const fakeServicesApi = [
-        {
-            image: development,
-            description: "Development Services"
-        },
-        {
-            image: graphic_designer,
-            description: "Graphic Design Services"
-        },
-        {
-            image: research,
-            description: "Research Services"
-        },
-        {
-            image: security,
-            description: "Security Services"
-        },
-        {
-            image: simple_customer_service,
-            description: "Customer Services"
-        },
-        {
-            image: technical_customer_service,
-            description: "Technical Customer Services"
+    const {isAdmin} = useContext(AuthContext)
+    const servicesCollectionRef = database.collection('services')
+    const [services, setServices] = useState([])
+    const [loadingServices, setLoadingServices] = useState(true)
+    useEffect(() => {
+        // for (let i = 0; i < 10; i++) {
+        //     AddServices()
+        // }
+        const getServices = async () => {
+            await servicesCollectionRef.onSnapshot(
+                querySnapshot => {
+                    const servicesZ = []
+                    querySnapshot.forEach((doc) => {
+                        const {description, imageUrl} = doc.data()
+                        servicesZ.push({
+                            description: description,
+                            imageUrl: imageUrl
+                        })
+                    })
+                    console.log(servicesZ)
+                    setServices(servicesZ)
+                }
+            )
         }
-    ];
+        getServices().then(_ => setLoadingServices(false)).then(e => console.log(e))
+    }, [])
 
-    return (
-        <View style={styles.container}>
+    if (!loadingServices) {
+        return (<View style={styles.container}>
             <ScrollView>
                 <View style={styles.serviceContainer}>
-                    {Array.from({length: fakeServicesApi.length}, (_, index) => (
+                    {Array.from({length: services.length}, (_, index) => (
                         <View key={index} style={styles.serviceContainerInside}>
                             <LazyService
                                 style={styles.service}
-                                image={fakeServicesApi[index].image}
-                                description={fakeServicesApi[index].description}
+                                image={services[index].imageUrl}
+                                description={services[index].description}
                             />
                         </View>
                     ))}
-                    <ServiceCreator/>
+                    {isAdmin && <ServiceCreator/>}
                 </View>
             </ScrollView>
-        </View>
-    );
+        </View>)
+    } else {
+        return <View><Text>Loading</Text></View>
+    }
+
+
 };
 
 export default Services;

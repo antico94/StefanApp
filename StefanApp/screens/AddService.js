@@ -7,7 +7,7 @@ import {
     TouchableOpacity, Dimensions, TextInput
 } from "react-native";
 import * as ImagePicker from 'expo-image-picker'
-import {storage} from "../firebase";
+import {database, storage} from "../firebase";
 import {LinearGradient} from "expo-linear-gradient";
 import placeholder from './../assets/images/placeholder.png'
 import * as RootNavigation from "../navigation/RootNavigation";
@@ -22,6 +22,15 @@ const AddService = () => {
     const [progress, setProgress] = useState(0);
     const [description, setDescription] = useState("")
     const [imageUrl, setImageUrl] = useState(null)
+    const servicesCollectionRef = database.collection('services')
+    const AddServiceToCloud = (description, imageUrl) => {
+        servicesCollectionRef.add({
+            description: description,
+            imageUrl: imageUrl
+        }).then(_ => console.log('Success!')).catch(_ => {
+            console.log('error')
+        })
+    }
 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -56,9 +65,9 @@ const AddService = () => {
                 },
                 async () => {
                     const downloadURL = await uploadTask.snapshot.ref.getDownloadURL();
-                    alert(`Image uploaded successfully. Download URL: ${downloadURL}`);
                     setImage(null);
                     setProgress(0);
+                    AddServiceToCloud(description, downloadURL)
                 }
             );
         } else {
@@ -87,7 +96,7 @@ const AddService = () => {
                                 backgroundColor: progress === 100 ? 'green' : 'orange'
                             }
                         ]}
-                                   maxLength={21}
+                                   maxLength={30}
                                    onChangeText={(text) => setDescription(text)}
                                    placeholder={"Insert service description"}
                                    placeholderTextColor={"white"}

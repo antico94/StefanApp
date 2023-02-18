@@ -3,6 +3,7 @@ import {useFonts} from "expo-font";
 import {AuthProvider} from "./context/AuthContext";
 import AppNav from "./navigation/AppNav";
 import { LogBox } from 'react-native';
+// import Test from "./screens/Test";
 LogBox.ignoreLogs(['AsyncStorage', 'Key "uri"']);
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
     return (
         <AuthProvider>
             <AppNav/>
+            {/*<Test/>*/}
         </AuthProvider>
     );
 }

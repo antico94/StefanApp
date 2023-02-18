@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
         padding: 25
     },
     containerTitle: {
-        marginTop: 50,
+        marginTop: 200,
         display: "flex",
         width: '100%',
         alignItems: "flex-start"

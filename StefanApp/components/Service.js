@@ -13,7 +13,7 @@ const Service = ({style, image, description}) => {
 
     return (
         <TouchableOpacity style={[style, styles.serviceContainer]}>
-            <Image source={image} style={styles.serviceImage} onLoadEnd={handleImageLoad}/>
+            <Image source={{uri : image}} style={styles.serviceImage} onLoadEnd={handleImageLoad}/>
             {imageLoaded ? (<Text style={styles.serviceText}>{description}</Text>) : (<LoadingScreen/>)}
         </TouchableOpacity>)
 };

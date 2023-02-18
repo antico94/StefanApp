@@ -3,7 +3,20 @@ import {Image, Text, View, StyleSheet, TouchableOpacity} from "react-native";
 import services from "../assets/images/services.png";
 import LoadingScreen from "./LoadingScreen";
 
+
 const FirstScreen = ({navigation}) => {
+    const test = async () => {
+        function writeUserData(userId, name, email, imageUrl) {
+            database.database().ref('users/' + userId).set({
+                username: name,
+                email: email,
+                profile_picture: imageUrl
+            });
+        }
+    }
+
+    test()
+
     const [imageLoaded, setImageLoaded] = useState(false);
 
     const handleImageLoad = () => {
