@@ -10,6 +10,7 @@ import {navigationRef} from "./RootNavigation";
 import Services from "../screens/Services";
 import {Animated, Text, TouchableOpacity, View} from "react-native";
 import AddService from "../screens/AddService";
+import ServiceInfo from "../screens/ServiceInfo";
 
 const Stack = createNativeStackNavigator();
 
@@ -72,6 +73,7 @@ const AppNav = () => {
                     <Stack.Screen name={'Homepage'} component={Footer} options={{headerShown: false}}/>
                     <Stack.Screen name={'Services'} component={Services} options={{headerShown: true, headerTransparent: false}}/>
                     <Stack.Screen name={'AddImage'} component={AddService} options={{headerShown: false, headerTransparent: true}}/>
+                    <Stack.Screen name={'ServiceInfo'} component={ServiceInfo}/>
                 </Stack.Navigator>
             </NavigationContainer>
         )

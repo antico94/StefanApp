@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+// noinspection DuplicatedCode
+import React, {useEffect, useRef, useState} from 'react';
 import {
     View,
     Text,
     Image,
     StyleSheet,
-    TouchableOpacity, Dimensions, TextInput
+    TouchableOpacity, Dimensions, TextInput, Platform, KeyboardAvoidingView, TouchableWithoutFeedback, Animated
 } from "react-native";
 import * as ImagePicker from 'expo-image-picker'
 import {database, storage} from "../firebase";
@@ -12,6 +13,7 @@ import {LinearGradient} from "expo-linear-gradient";
 import placeholder from './../assets/images/placeholder.png'
 import * as RootNavigation from "../navigation/RootNavigation";
 import addServicePhoto from './../assets/images/addService.webp'
+import Svg, {Path} from "react-native-svg";
 
 
 const imagesRef = storage.ref().child('images');
@@ -20,14 +22,23 @@ const screenWidth = Dimensions.get("window").width;
 const AddService = () => {
     const [image, setImage] = useState(null);
     const [progress, setProgress] = useState(0);
+    const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
-    const [imageUrl, setImageUrl] = useState(null)
+    const [success, setSuccess] = useState(false)
+    const [nextScreen, setNextScreen] = useState(false)
     const servicesCollectionRef = database.collection('services')
-    const AddServiceToCloud = (description, imageUrl) => {
+    const descriptionRef = useRef(null)
+    const [loading, setLoading] = useState(false)
+    const AddServiceToCloud = (title, description, imageUrl) => {
         servicesCollectionRef.add({
-            description: description,
-            imageUrl: imageUrl
-        }).then(_ => console.log('Success!')).catch(_ => {
+            imageUrl: imageUrl,
+            title: title,
+            description: description
+        }).then(_ => {
+            setSuccess(true)
+            console.log('Success!')
+            resetFields()
+        }).catch(_ => {
             console.log('error')
         })
     }
@@ -67,7 +78,8 @@ const AddService = () => {
                     const downloadURL = await uploadTask.snapshot.ref.getDownloadURL();
                     setImage(null);
                     setProgress(0);
-                    AddServiceToCloud(description, downloadURL)
+                    setLoading(true)
+                    AddServiceToCloud(title, description, downloadURL)
                 }
             );
         } else {
@@ -75,50 +87,155 @@ const AddService = () => {
         }
     };
 
+    const handleNextScreen = () => {
+        if (image && title.length > 0) {
+            setNextScreen(true)
+        }
+    }
+
+    const handleOutsidePress = () => {
+        descriptionRef.current.blur()
+    }
+
+
+    useEffect(() => {
+        if (progress >= 1) {
+            setLoading(true)
+        }
+    }, [progress])
+
+    useEffect(() => {
+        if (success) {
+            RootNavigation.navigate("Services")
+        }
+    }, [success])
+
+    const resetFields = () => {
+        setImage(null)
+        setProgress(0)
+        setTitle("")
+        setDescription("")
+        setSuccess(false)
+        setNextScreen(false)
+        setLoading(false)
+    }
+
+
     return (
-        <View style={styles.container}>
-            <LinearGradient
-                colors={['#ed7a8f', '#f19e78']}
-                style={styles.container}
-            >
-                <View style={styles.top}>
-                    <Text style={styles.title}>Choose an image</Text>
-                    <TouchableOpacity
-                        style={[styles.imageContainer, {width: screenWidth * 0.8, height: screenWidth * 0.8}]}
-                        onPress={pickImage}>
-                        <Image source={image !== null ? image.assets : placeholder}
-                               style={[styles.image, {width: screenWidth * 0.7, height: screenWidth * 0.7}]}/>
-                    </TouchableOpacity>
-                    <View style={styles.delimiter}>
-                        <TextInput style={[styles.input,
-                            {
-                                width: progress > 1 ? `${progress}%` : 'auto',
-                                backgroundColor: progress === 100 ? 'green' : 'orange'
-                            }
-                        ]}
-                                   maxLength={30}
-                                   onChangeText={(text) => setDescription(text)}
-                                   placeholder={"Insert service description"}
-                                   placeholderTextColor={"white"}
-                        >{progress === 100 ? 'Done' : null}
-                        </TextInput>
+        !nextScreen ? (<View style={styles.container}>
+                <LinearGradient
+                    colors={['#ed7a8f', '#f19e78']}
+                    style={styles.container}
+                >
+                    <View style={styles.top}>
+                        <Text style={styles.title}>Choose an image</Text>
+                        <TouchableOpacity
+                            style={[styles.imageContainer, {width: screenWidth * 0.8, height: screenWidth * 0.8}]}
+                            onPress={pickImage}>
+                            <Image source={image !== null ? image.assets : placeholder}
+                                   style={[styles.image, {width: screenWidth * 0.7, height: screenWidth * 0.7}]}/>
+                        </TouchableOpacity>
+                        <View style={styles.delimiter}>
+                            <TextInput style={[styles.input,
+                                {
+                                    width: progress > 1 ? `${progress}%` : 'auto',
+                                    backgroundColor: progress === 100 ? 'green' : 'orange'
+                                }
+                            ]}
+                                       maxLength={30}
+                                       onChangeText={(text) => setTitle(text)}
+                                       placeholder={"Insert service title"}
+                                       placeholderTextColor={"white"}
+                            >{progress === 100 ? 'Done' : null}
+                            </TextInput>
+                        </View>
+
+                    </View>
+                    <View style={styles.bot}>
+                        <TouchableOpacity style={styles.buttonsContainer} onPress={handleNextScreen}>
+                            <Text style={styles.customButton}>
+                                Next
+                            </Text>
+                        </TouchableOpacity>
+                        <Image source={addServicePhoto}
+                               style={{width: screenWidth * 0.9, height: screenWidth * 0.9, position: 'absolute'}}
+                        ></Image>
                     </View>
 
-                </View>
-                <View style={styles.bot}>
-                    <TouchableOpacity style={styles.buttonsContainer} onPress={uploadImage}>
-                        <Text style={styles.loginButton}>
-                            Add service
-                        </Text>
-                    </TouchableOpacity>
-                    <Image source={addServicePhoto}
-                           style={{width: screenWidth * 0.9, height: screenWidth * 0.9, position: 'absolute'}}
-                    ></Image>
+                </LinearGradient>
+            </View>) :
+            (
+                <TouchableWithoutFeedback onPress={handleOutsidePress}>
+                    <View style={styles.container}>
+                        <LinearGradient
+                            colors={['#ed7a8f', '#f19e78']}
+                            style={styles.container}
+                        >
+                            <View style={styles.nextScreenTop}>
+                                {!loading ? (
+                                    <Image
+                                        source={image.assets}
+                                        style={[
+                                            styles.image,
+                                            {
+                                                width: screenWidth * 0.7,
+                                                height: screenWidth * 0.7,
+                                            },
+                                        ]}
+                                    />
+                                ) : (
+                                    <Svg
+                                        width={400}
+                                        height={400}
+                                        viewBox="0 0 64 64"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        xmlSpace="preserve"
+                                        style={{
+                                            fillRule: "evenodd",
+                                            clipRule: "evenodd",
+                                            strokeLinejoin: "round",
+                                            strokeMiterlimit: 2,
+                                        }}
+                                    >
+                                        <Path
+                                            style={{
+                                                fill: "none",
+                                            }}
+                                            d="M-512-64H768v800H-512z"
+                                        />
+                                        <Path
+                                            d="M56.103 16.824 22.807 50.121 8.026 35.341l2.767-2.767 11.952 11.952 30.53-30.53 2.828 2.828Z"
+                                            style={{
+                                                fillRule: "nonzero",
+                                            }}
+                                        />
+                                    </Svg>
+                                )}
 
-                </View>
+                                <Text style={[styles.title, {fontSize: 30}]}>{title}</Text>
+                            </View>
+                            <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
+                                                  style={styles.nextScreenBottom}>
+                                <TextInput ref={descriptionRef} multiline={true}
+                                           onChangeText={(text) => setDescription(text)} style={styles.addDescription}>
+                                </TextInput>
+                                <View style={{
+                                    marginTop: 50, borderStyle: 'solid',
+                                    borderWidth: 1,
+                                    borderColor: 'white'
+                                }}>
+                                    <TouchableOpacity style={styles.uploadService} onPress={() => uploadImage()}>
+                                        <Text style={styles.customButton}>
+                                            Upload Service
+                                        </Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </KeyboardAvoidingView>
+                        </LinearGradient>
+                    </View>
+                </TouchableWithoutFeedback>
+            )
 
-            </LinearGradient>
-        </View>
     );
 };
 
@@ -213,12 +330,46 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         zIndex: 20
     },
-    loginButton: {
+    customButton: {
         borderRadius: 10,
         overflow: 'hidden',
         color: 'white',
         fontFamily: 'DosisBold',
         textAlign: 'center',
         fontSize: 20
+    },
+    nextScreenTop: {
+        marginTop: 30,
+        display: "flex",
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        height: '50%',
+    },
+    nextScreenBottom: {
+        width: '100%',
+        height: '50%',
+        display: "flex",
+        justifyContent: 'center',
+        alignItems: 'center',
+        // backgroundColor: `rgba(255, 255, 255, 0.5)`,
+    },
+    addDescription: {
+        padding: 10,
+        height: 150,
+        width: '90%',
+        backgroundColor: `rgba(255, 255, 255, 0.5)`,
+        fontSize: 15,
+        fontFamily: 'Dosis',
+        borderRadius: '15%'
+    },
+    uploadService: {
+        // backgroundColor: 'red',
+        height: 50,
+        width: 200,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: '30%'
     }
 })

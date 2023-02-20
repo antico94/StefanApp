@@ -9,7 +9,6 @@ import {
 import Icon from "react-native-vector-icons/Ionicons";
 import SvgComponent from "../components/SvgComponent";
 import {LinearGradient} from 'expo-linear-gradient';
-import {auth} from '../firebase'
 import {AuthContext} from "../context/AuthContext";
 
 

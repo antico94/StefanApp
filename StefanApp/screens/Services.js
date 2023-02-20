@@ -23,14 +23,16 @@ const Services = () => {
                 querySnapshot => {
                     const servicesZ = []
                     querySnapshot.forEach((doc) => {
-                        const {description, imageUrl} = doc.data()
+                        const {description, imageUrl, title} = doc.data()
                         servicesZ.push({
+                            title: title,
                             description: description,
-                            imageUrl: imageUrl
+                            imageUrl: imageUrl,
+                            serviceId: doc.id
                         })
                     })
-                    console.log(servicesZ)
                     setServices(servicesZ)
+                    console.log(servicesZ)
                 }
             )
         }
@@ -46,7 +48,8 @@ const Services = () => {
                             <LazyService
                                 style={styles.service}
                                 image={services[index].imageUrl}
-                                description={services[index].description}
+                                title={services[index].title}
+                                serviceId={services[index].serviceId}
                             />
                         </View>
                     ))}
