@@ -38,7 +38,6 @@ const AddService = () => {
             description: description
         }).then(_ => {
             setSuccess(true)
-            console.log('Success!')
             resetFields()
         }).catch(_ => {
             console.log('error')

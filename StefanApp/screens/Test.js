@@ -23,7 +23,7 @@ const Test = () => {
         servicesCollectionRef.add({
             description: description,
             imageUrl: imageUrl
-        }).then(_ => console.log('Success!')).catch(_ => {
+        }).then(_ => _).catch(_ => {
             console.log('error')
         })
     }

@@ -75,7 +75,7 @@ const AppNav = () => {
                     <Stack.Screen name={'Services'} component={Services} options={{headerShown: true, headerTransparent: false}}/>
                     <Stack.Screen name={'AddService'} component={AddService} options={{headerShown: true, headerTransparent: true}}/>
                     <Stack.Screen name={'EditService'} component={EditService} options={{headerShown: true, headerTransparent: true}}/>
-                    <Stack.Screen name={'ServiceInfo'} component={ServiceInfo}/>
+                    <Stack.Screen name={'ServiceInfo'} component={ServiceInfo} options={{headerShown: true, headerTransparent: true}}/>
                 </Stack.Navigator>
             </NavigationContainer>
         )

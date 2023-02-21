@@ -72,7 +72,6 @@ const EditService = () => {
             }).catch((error) => {
                 console.log('Error getting document:', error);
             });
-            console.log(serviceData)
         }
     }, [serviceId]);
 
@@ -95,9 +94,7 @@ const EditService = () => {
             await uploadTask;
             // Get the download URL
             const downloadURL = await uploadTask.snapshot.ref.getDownloadURL();
-            console.log('File available at', downloadURL);
             setNewImageURL(downloadURL);
-            console.log("DONE UPLOAD");
             // Return the download URL
             return downloadURL;
         } else {
@@ -109,7 +106,6 @@ const EditService = () => {
         if (newImage !== null) {
             // Wait for the upload image function to finish and get the new image URL
             const newImageUrl = await uploadImage();
-            console.log(newImageUrl)
             try {
                 const serviceRef = servicesCollectionRef.doc(serviceId);
                 await serviceRef.update({

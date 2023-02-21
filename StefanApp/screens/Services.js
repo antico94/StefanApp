@@ -32,11 +32,10 @@ const Services = () => {
                         })
                     })
                     setServices(servicesZ)
-                    console.log(servicesZ)
                 }
             )
         }
-        getServices().then(_ => setLoadingServices(false)).then(e => console.log(e))
+        getServices().then(_ => setLoadingServices(false))
     }, [])
 
     if (!loadingServices) {
@@ -95,9 +94,10 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         flexWrap: 'wrap',
-        justifyContent: 'space-evenly',
+        // justifyContent: 'space-evenly',
     },
     serviceContainerInside: {
+        margin: 5
     },
 
     service: {
@@ -106,7 +106,6 @@ const styles = StyleSheet.create({
         borderColor: 'violet',
         width: screenWidth / 2 - 15,
         height: screenHeight / 3,
-        marginBottom: 10,
         borderRadius: 10,
         backgroundColor: 'white'
     },
