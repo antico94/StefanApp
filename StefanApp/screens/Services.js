@@ -3,13 +3,13 @@ import {View, Text, ScrollView, StyleSheet, Dimensions} from "react-native";
 import ServiceCreator from "../components/ServiceCreator";
 import {database} from "../firebase";
 import {AuthContext} from "../context/AuthContext";
+import Service from "../components/Service";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 
 const Services = () => {
-    const LazyService = React.memo(React.lazy(() => import('./../components/Service')));
     const {isAdmin} = useContext(AuthContext)
     const servicesCollectionRef = database.collection('services')
     const [services, setServices] = useState([])
@@ -45,7 +45,7 @@ const Services = () => {
                 <View style={styles.serviceContainer}>
                     {Array.from({length: services.length}, (_, index) => (
                         <View key={index} style={styles.serviceContainerInside}>
-                            <LazyService
+                            <Service
                                 style={styles.service}
                                 image={services[index].imageUrl}
                                 title={services[index].title}
@@ -91,13 +91,14 @@ const styles = StyleSheet.create({
         fontFamily: 'Dosis'
     },
     serviceContainer: {
+        width: '100%',
         display: 'flex',
         flexDirection: 'row',
         flexWrap: 'wrap',
-        justifyContent: 'space-between',
-        padding: 10
+        justifyContent: 'space-evenly',
     },
-    serviceContainerInside: {},
+    serviceContainerInside: {
+    },
 
     service: {
         borderStyle: "solid",

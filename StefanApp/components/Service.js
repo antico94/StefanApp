@@ -3,12 +3,11 @@ import {StyleSheet, View, Text, TouchableOpacity, Touchable} from "react-native"
 import {Image} from "react-native-elements";
 import LoadingScreen from "../screens/LoadingScreen";
 import * as RootNavigation from './../navigation/RootNavigation';
-import {useRoute} from '@react-navigation/native';
 
 
 
 
-const Service = ({style, image, description, title, serviceId}) => {
+const Service = ({style, image, title, serviceId}) => {
     const [imageLoaded, setImageLoaded] = useState(false);
 
     const handleImageLoad = () => {

@@ -24,10 +24,6 @@ function App() {
     return (
         <AuthProvider>
             <AppNav/>
-            {/*<ServiceInfo serviceId={'mw5JSTnjK7qgHXaO5OQY'}/>*/}
-            {/*<AddService/>*/}
-            {/*<Test/>*/}
-            {/*<TestSteps/>*/}
         </AuthProvider>
     );
 }

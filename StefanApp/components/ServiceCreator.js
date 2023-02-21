@@ -5,7 +5,7 @@ import * as RootNavigation from './../navigation/RootNavigation';
 
 const ServiceCreator = () => {
     return (
-        <TouchableOpacity style={styles.serviceCreatorContainer} onPress={()=> RootNavigation.navigate('AddImage')}>
+        <TouchableOpacity style={styles.serviceCreatorContainer} onPress={()=> RootNavigation.navigate('AddService')}>
             <Svg
                 style={styles.svgStyle}
                 viewBox="0 0 24 24"

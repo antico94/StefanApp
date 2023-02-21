@@ -1,4 +1,6 @@
 // noinspection DuplicatedCode
+// noinspection DuplicatedCode
+
 import React, {useEffect, useRef, useState} from 'react';
 import {
     View,
@@ -172,52 +174,27 @@ const AddService = () => {
                             style={styles.container}
                         >
                             <View style={styles.nextScreenTop}>
-                                {!loading ? (
-                                    <Image
-                                        source={image.assets}
-                                        style={[
-                                            styles.image,
-                                            {
-                                                width: screenWidth * 0.7,
-                                                height: screenWidth * 0.7,
-                                            },
-                                        ]}
-                                    />
-                                ) : (
-                                    <Svg
-                                        width={400}
-                                        height={400}
-                                        viewBox="0 0 64 64"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        xmlSpace="preserve"
-                                        style={{
-                                            fillRule: "evenodd",
-                                            clipRule: "evenodd",
-                                            strokeLinejoin: "round",
-                                            strokeMiterlimit: 2,
-                                        }}
-                                    >
-                                        <Path
-                                            style={{
-                                                fill: "none",
-                                            }}
-                                            d="M-512-64H768v800H-512z"
-                                        />
-                                        <Path
-                                            d="M56.103 16.824 22.807 50.121 8.026 35.341l2.767-2.767 11.952 11.952 30.53-30.53 2.828 2.828Z"
-                                            style={{
-                                                fillRule: "nonzero",
-                                            }}
-                                        />
-                                    </Svg>
-                                )}
-
-                                <Text style={[styles.title, {fontSize: 30}]}>{title}</Text>
+                                <Image
+                                    source={image !== null ? image.assets : placeholder}
+                                    style={[
+                                        styles.image,
+                                        {
+                                            width: screenWidth * 0.7,
+                                            height: screenWidth * 0.7,
+                                        },
+                                    ]}
+                                />
+                                <Text
+                                    style={[styles.title, {
+                                        fontSize: 30,
+                                        color: progress === 100 ? 'green' : 'white'
+                                    }]}>{progress === 100 ? 'Service added successfully' : title}</Text>
                             </View>
                             <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
                                                   style={styles.nextScreenBottom}>
                                 <TextInput ref={descriptionRef} multiline={true}
-                                           onChangeText={(text) => setDescription(text)} style={styles.addDescription}>
+                                           onChangeText={(text) => setDescription(text)} style={styles.addDescription}
+                                           placeholder={"Describe your service"}>
                                 </TextInput>
                                 <View style={{
                                     marginTop: 50, borderStyle: 'solid',
@@ -236,7 +213,8 @@ const AddService = () => {
                 </TouchableWithoutFeedback>
             )
 
-    );
+    )
+        ;
 };
 
 export default AddService;
